@@ -6,6 +6,8 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using BPMonlineHomeTask.App_Start;
+using Microsoft.Practices.Unity;
 
 namespace BPMonlineHomeTask
 {
@@ -22,6 +24,8 @@ namespace BPMonlineHomeTask
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            IocUnityConfig.ConfigureUnityContainer();
         }
     }
 }

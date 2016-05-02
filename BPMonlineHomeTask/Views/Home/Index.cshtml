@@ -1,0 +1,199 @@
+﻿@using Microsoft.Ajax.Utilities
+@model List<BPMonlineHomeTask.BPMonlineServiceRef.Contact>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>ContactCollection</h2>
+<div style="display:none;">@Html.ActionLink("Create new contact","Create","Home")</div>
+<div>
+    @using (Html.BeginForm("CreateContact", "Home", null, FormMethod.Post, new { @class = "form-horizontal create-new-contact-form", @role = "form" }))
+    {
+        <div class="form-group">
+            <label class="control-label col-sm-2">Name</label>
+            <div class="col-sm-10">
+                <input type="text" id="Name" name="Name" value="" placeholder="Enter your name" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2">MobilePhone</label>
+            <div class="col-sm-10">
+                <input type="" id="MobilePhone" name="MobilePhone" value="" placeholder="(29)000-00-00" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2">Dear</label>
+            <div class="col-sm-10">
+                <input type="text" id="Dear" name="Dear" value="" placeholder="Enter your dear" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2">JobTitle</label>
+            <div class="col-sm-10">
+                <input type="text" id="JobTitle" name="JobTitle" value="" placeholder="Enter your JobTitle" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2">BirthDate</label>
+            <div class="col-sm-10">
+                <input type="date" id="BirthDate" name="BirthDate" value="" />
+            </div>
+        </div> 
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <input type="submit" name="submit" class="btn btn-default" value="Add New Item" />
+            </div>
+        </div>
+        <div class="form-group new-contact-form-message">
+            <p>Result:<span></span></p>
+        </div>
+    }
+    
+</div>
+
+<h2>ContactCollection List</h2>
+<div class="contacts-container container">
+    @{
+        
+        int i = Html.ViewBag.pageFirstItemNum;
+        
+        foreach (var item in @Model)
+        {
+            <div class="contact-list-item col-md-12 item" id="@item.Id">
+                            <div>Item# @i.ToString()</div>
+                <div>-------------------</div>
+                <div class="contact-item-view">
+                    <div style="display:none;" name="Id">
+                        <label>Id:</label> @item.Id
+                    </div>
+                    <div>
+                        <label>Name:</label><span name="Name">@item.Name</span>
+                    </div>
+                    <div>
+                        <label>Phone:</label><span name="Phone">@item.MobilePhone</span>
+                    </div>
+                    <div>
+                        <label>Dear:</label> <span name="Dear">@item.Dear</span>
+                    </div>
+                    <div >
+                        <label>JobTitle:</label> <span name="JobTitle">@item.JobTitle</span>
+                    </div>
+                    <div>
+                        <label>BirthDate:</label> <span name="BirthDate">@item.BirthDate</span>
+                    </div>
+            
+                </div>
+            
+                <div class="contact-update btn btn-default"><a href="javascript:void(0)">Update</a></div>
+                <div class="contact-delete btn btn-default"><a href="javascript:void(0)">Delete</a></div>
+            
+                <div class="contact-item-update" style="display:none;" id="form-@i">
+                    @using (Html.BeginForm("UpdateContact", "Home", null, FormMethod.Post, new { @class = "form-horizontal contact-item-update-form", @role = "form" }))
+                    {
+                        <div class="form-group"></div>
+                        <div class="form-group" style="display: none; ">
+                            <label class="control-label col-sm-2">Id</label>
+                            <div class="col-sm-10">
+                                <input type="text" id="Id" name="Id" value="@item.Id" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">Name</label>
+                            <div class="col-sm-10">
+                                <input type="text" id="Name" name="Name" value="@item.Name" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">MobilePhone</label>
+                            <div class="col-sm-10">
+                                <input type="number" id="MobilePhone" name="MobilePhone" value="@item.MobilePhone" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">Dear</label>
+                            <div class="col-sm-10">
+                                <input type="text" id="Dear" name="Dear" value="@item.Dear" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">JobTitle</label>
+                            <div class="col-sm-10">
+                                <input type="text" id="JobTitle" name="JobTitle" value="@item.JobTitle" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">BirthDate</label>
+                            <div class="col-sm-10">
+                                <input type="date" id="BirthDate" name="BirthDate" value="@item.BirthDate.Value.ToString("yyyy-MM-dd")" />
+                            </div>
+                        </div> 
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <input type="submit" name="submit" class="btn btn-default" value="Update" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <div class="contact-item-update-form-message"></div>
+                            </div>
+                        </div>
+                        
+                    }
+                </div>
+                <div class="contact-item-delete" style="display:none;" id="form-@i" actionLink="@Url.Action("DeleteContact","Home")" itemId="@item.Id">
+                    
+                    Are you sure, that you whant to delete this contact?
+                    <div class="">
+                        @using (Html.BeginForm("DeleteContact", "Home", null, FormMethod.Post, new {@class = "delete-contact-form", @role = "form"}))
+                        {
+                            <input style="display:none;" type="text" id="Id" name="Id" value="@item.Id" />
+                            <input type="submit" class="delete-item-yes btn btn-default" value="Yes" />
+                            <div class="delete-contact-form-message"></div>
+                        }
+                    
+                    </div>
+                </div>
+            
+            
+                <div style="display:none;">@Html.ActionLink("Update","Update","Home",new{ contactId = @item.Id, url = @Request.Url.ToString()},null)</div>
+                <div style="display:none;">@Html.ActionLink("Delete","Delete","Home",new{ contactId = @item.Id, url = @Request.Url.ToString()},null)</div>
+        
+            </div>    
+            i++;
+        }
+    }
+    <div class="col-md-12">
+        <ul class="pagination">
+            @{
+                int currPage = Html.ViewBag.pageCurrPageNum;
+                int totalPages = Html.ViewBag.pageTotalPagesNum;
+                int flag = 0;
+            } 
+        
+            @for (int temp = currPage - 5; temp != currPage; temp++)
+            {
+                if (temp >= 0)
+                {
+                    <li class="">@Html.ActionLink(temp.ToString(), "Index", "Home", new {id = temp}, null)</li>
+                }
+            }
+
+            @for (int temp = currPage; temp < currPage+6; temp++)
+            {
+                if (temp == currPage)
+                {
+                    <li class="active col-md-2">@Html.ActionLink(temp.ToString(), "Index", "Home", new {id = temp}, null)</li>
+                }
+                else
+                {
+                    <li class="">@Html.ActionLink(temp.ToString(), "Index", "Home", new {id = temp}, null)</li>
+                }
+
+            }
+        
+        </ul>
+    </div>
+    
+</div>

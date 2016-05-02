@@ -1,6 +1,7 @@
 ﻿using System.Web;
 using System.Web.Optimization;
 
+
 namespace BPMonlineHomeTask
 {
     public class BundleConfig
@@ -22,6 +23,9 @@ namespace BPMonlineHomeTask
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
+            
+            bundles.Add(new ScriptBundle("~/bundles/custom").Include(
+                        "~/Scripts/Custom/custom*"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/site.css"));
 
@@ -38,6 +42,9 @@ namespace BPMonlineHomeTask
                         "~/Content/themes/base/jquery.ui.datepicker.css",
                         "~/Content/themes/base/jquery.ui.progressbar.css",
                         "~/Content/themes/base/jquery.ui.theme.css"));
+            
+            bundles.Add(new StyleBundle("~/Content").Include(
+                        "~/Content/bootstrap*"));
         }
     }
 }

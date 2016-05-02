@@ -1,0 +1,38 @@
+﻿@model BPMonlineHomeTask.BPMonlineServiceRef.Contact
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h2>Create</h2>
+<div>
+    Total - @Html.ViewBag.Total;
+</div>
+
+    @using (Html.BeginForm("Create","Home",FormMethod.Post))
+    {
+        <div class="item">
+        <label>Name</label>
+        <input name="Name" value="@Model.Name" />
+        </div>
+        <div class="item">
+            <label>MobilePhone</label>
+            <input name="MobilePhone" value="@Model.MobilePhone" />
+        </div>
+        <div class="item">
+            <label>Dear</label>
+            <input name="Dear" value="@Model.Dear" />
+        </div>
+        <div class="item">
+            <label>JobTitle</label>
+            <input name="JobTitle" value="@Model.JobTitle" />
+        </div>
+        <div class="item">
+            <label>BirthDate</label>
+            <input name="BirthDate" value="@Model.BirthDate" />
+        </div> 
+    
+        <input type="submit" value="Submit" />
+    }

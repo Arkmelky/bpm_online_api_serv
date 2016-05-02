@@ -5,12 +5,24 @@
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content")
     @Scripts.Render("~/bundles/modernizr")
+    
 </head>
-<body>
-    @RenderBody()
+    <body>
+        <div>
+            @Html.AntiForgeryToken()
+        </div>
+        <div class="container">
+            <div class="state-info">@Html.ViewBag.Message</div>
+            <div>Total contacts:@Html.ViewBag.pageTotalItemsNum</div>
+        
+            @RenderBody()    
+        </div>
+        
 
-    @Scripts.Render("~/bundles/jquery")
-    @RenderSection("scripts", required: false)
-</body>
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/custom")
+        @RenderSection("scripts", required: false)
+    </body>
 </html>
